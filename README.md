@@ -1,4 +1,4 @@
-# Copy Commons
+# Config Manager
 [![Latest version](https://maven-badges.herokuapp.com/maven-central/org.bytemechanics/config-manager/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.bytemechanics/config-manager/badge.svg)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.bytemechanics%3Aconfig-manager&metric=alert_status)](https://sonarcloud.io/dashboard/index/org.bytemechanics%3Aconfig-manager)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.bytemechanics%3Aconfig-manager&metric=coverage)](https://sonarcloud.io/dashboard/index/org.bytemechanics%3Aconfig-manager)
