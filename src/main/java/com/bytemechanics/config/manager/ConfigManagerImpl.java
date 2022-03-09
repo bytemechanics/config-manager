@@ -6,8 +6,11 @@
 package com.bytemechanics.config.manager;
 
 /**
- * Config Manager service
+ * Config manager service implementation
  * @author afarre
  */
-public interface ConfigManager {
+public class ConfigManagerImpl implements ConfigManager{
+
+    private String defaultConfig
+    
 }
