@@ -62,6 +62,8 @@
                                     <classes>
                                         <class>org.bytemechanics.commons.io.YAMLPropertyReader</class>
                                         <class>org.bytemechanics.commons.io.YAMLPropertyWriter</class>
+                                        <class>org.bytemechanics.commons.functional.LambdaUnchecker</class>
+                                        <class>org.bytemechanics.commons.string.SimpleFormat</class>
                                     </classes>
                                     <fromPackage>org.bytemechanics.commons</fromPackage>
                                     <toPackage>org.bytemechanics.config.manager.internal.commons</toPackage>
