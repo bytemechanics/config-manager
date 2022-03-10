@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
  */
 
-package com.bytemechanics.config.manager;
+package org.bytemechanics.config.manager;
 
-import com.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
-import com.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
-import com.bytemechanics.config.manager.exceptions.UnwritableConfigLocation;
-import com.bytemechanics.config.manager.internal.loaders.ConfigParserFactory;
-import com.bytemechanics.config.manager.internal.loaders.ConfigProviderFactory;
+import org.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
+import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
+import org.bytemechanics.config.manager.exceptions.UnwritableConfigLocation;
+import org.bytemechanics.config.manager.internal.loaders.ConfigParserFactory;
+import org.bytemechanics.config.manager.internal.loaders.ConfigProviderFactory;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.UncheckedIOException;

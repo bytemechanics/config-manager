@@ -13,25 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bytemechanics.config.manager.exceptions;
+package org.bytemechanics.config.manager.exceptions;
 
 import java.net.URI;
 import org.bytemechanics.config.manager.internal.commons.string.SimpleFormat;
 
 /**
- * Raised when trying to load configuration from an location with unsupported formats
+ * Raised when trying to load configuration from an unknown location scheme
+ * @see URI#getScheme() 
  * @author afarre
  */
-public class UnsupportedConfigLocationFormat extends RuntimeException{
+public class UnsupportedConfigLocationScheme extends RuntimeException{
 
-    private static final String MESSAGE="Unsupported config location format {} valid formats should end with {}";
+    protected static final String MESSAGE="Unknown config location scheme {} valid schemes are {}";
     
     /**
      * Constructor to build the exception
-     * @param _location location not supported
-     * @param _supportedFormats description of supported formats
+     * @param _location URI not supported
+     * @param _supportedSchemes description of supported schemes
      */
-    public UnsupportedConfigLocationFormat(final URI _location,final String _supportedFormats) {
-        super(SimpleFormat.format(MESSAGE,_location,_supportedFormats));
+    public UnsupportedConfigLocationScheme(final URI _location,final String _supportedSchemes) {
+        super(SimpleFormat.format(MESSAGE,_location,_supportedSchemes));
     }
 }

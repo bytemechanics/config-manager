@@ -3,11 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
  */
 
-package com.bytemechanics.config.manager;
+package org.bytemechanics.config.manager;
 
-import com.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
-import com.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
-import com.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationScheme;
+import org.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
+import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
+import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationScheme;
 import java.net.URI;
 import java.util.stream.Stream;
 

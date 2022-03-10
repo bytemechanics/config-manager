@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bytemechanics.config.manager.internal.loaders;
+package org.bytemechanics.config.manager.internal.loaders;
 
-import com.bytemechanics.config.manager.Config;
+import org.bytemechanics.config.manager.Config;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.stream.Stream;

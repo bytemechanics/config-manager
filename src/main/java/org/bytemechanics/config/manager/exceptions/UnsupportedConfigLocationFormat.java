@@ -13,34 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bytemechanics.config.manager.exceptions;
+package org.bytemechanics.config.manager.exceptions;
 
 import java.net.URI;
 import org.bytemechanics.config.manager.internal.commons.string.SimpleFormat;
 
 /**
- * Raised when unable to read config location from unknown reasons
+ * Raised when trying to load configuration from an location with unsupported formats
  * @author afarre
  */
-public class UnreadableConfigLocation extends RuntimeException{
+public class UnsupportedConfigLocationFormat extends RuntimeException{
 
-    private static final String MESSAGE="Unable to read config location {}";
+    protected static final String MESSAGE="Unsupported config location format {} valid formats should end with {}";
     
     /**
      * Constructor to build the exception
      * @param _location location not supported
-     * @param _cause underlaying exception
+     * @param _supportedFormats description of supported formats
      */
-    public UnreadableConfigLocation(final URI _location,final Throwable _cause) {
-        this(SimpleFormat.format(MESSAGE,_location),_cause);
-    }
-
-    /**
-     * Constructor to build the exception
-     * @param _message message to use
-     * @param _cause underlaying exception
-     */
-    public UnreadableConfigLocation(final String _message,final Throwable _cause) {
-        super(_message,_cause);
+    public UnsupportedConfigLocationFormat(final URI _location,final String _supportedFormats) {
+        super(SimpleFormat.format(MESSAGE,_location,_supportedFormats));
     }
 }

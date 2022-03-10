@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bytemechanics.config.manager.internal.loaders;
+package org.bytemechanics.config.manager.internal.loaders;
 
-import com.bytemechanics.config.manager.Config;
-import com.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
+import org.bytemechanics.config.manager.Config;
+import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.UncheckedIOException;

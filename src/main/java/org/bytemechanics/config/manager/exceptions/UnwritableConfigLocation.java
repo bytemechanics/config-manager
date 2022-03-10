@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bytemechanics.config.manager.exceptions;
+package org.bytemechanics.config.manager.exceptions;
 
 import java.net.URI;
 import org.bytemechanics.config.manager.internal.commons.string.SimpleFormat;
@@ -24,7 +24,7 @@ import org.bytemechanics.config.manager.internal.commons.string.SimpleFormat;
  */
 public class UnwritableConfigLocation extends RuntimeException{
 
-    private static final String MESSAGE="Unable to write config location {}";
+    protected static final String MESSAGE="Unable to write config location {}";
     
     /**
      * Constructor to build the exception

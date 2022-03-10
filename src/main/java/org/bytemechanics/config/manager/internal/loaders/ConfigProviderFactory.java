@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bytemechanics.config.manager.internal.loaders;
+package org.bytemechanics.config.manager.internal.loaders;
 
-import com.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
-import com.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationScheme;
-import com.bytemechanics.config.manager.exceptions.UnwritableConfigLocation;
+import org.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
+import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationScheme;
+import org.bytemechanics.config.manager.exceptions.UnwritableConfigLocation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

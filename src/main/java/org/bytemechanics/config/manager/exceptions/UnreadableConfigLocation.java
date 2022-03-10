@@ -13,26 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.bytemechanics.config.manager.exceptions;
+package org.bytemechanics.config.manager.exceptions;
 
 import java.net.URI;
 import org.bytemechanics.config.manager.internal.commons.string.SimpleFormat;
 
 /**
- * Raised when trying to load configuration from an unknown location scheme
- * @see URI#getScheme() 
+ * Raised when unable to read config location from unknown reasons
  * @author afarre
  */
-public class UnsupportedConfigLocationScheme extends RuntimeException{
+public class UnreadableConfigLocation extends RuntimeException{
 
-    private static final String MESSAGE="Unknown config location scheme {} valid schemes are {}";
+    protected static final String MESSAGE="Unable to read config location {}";
     
     /**
      * Constructor to build the exception
-     * @param _location URI not supported
-     * @param _supportedSchemes description of supported schemes
+     * @param _location location not supported
+     * @param _cause underlaying exception
      */
-    public UnsupportedConfigLocationScheme(final URI _location,final String _supportedSchemes) {
-        super(SimpleFormat.format(MESSAGE,_location,_supportedSchemes));
+    public UnreadableConfigLocation(final URI _location,final Throwable _cause) {
+        this(SimpleFormat.format(MESSAGE,_location),_cause);
     }
+
+    /**
+     * Constructor to build the exception
+     * @param _message message to use
+     * @param _cause underlaying exception
+     */
+    public UnreadableConfigLocation(final String _message,final Throwable _cause) {
+        super(_message,_cause);
+    }
+    
+    
 }
