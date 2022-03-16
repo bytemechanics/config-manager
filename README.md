@@ -28,19 +28,19 @@ Java version: JDK8+
 (Please read our [Javadoc](https://config-manager.bytemechanics.org/javadoc/index.html) for further information)
 
 1. First of all include the Jar file in your compile and execution classpath.
-   * **Maven**
+   * Maven
      ```Maven
-	<dependency>
-		<groupId>org.bytemechanics</groupId>
-		<artifactId>config-manager</artifactId>
-		<version>X.X.X</version>
-	</dependency>
+     <dependency>
+           <groupId>org.bytemechanics</groupId>
+           <artifactId>config-manager</artifactId>
+           <version>X.X.X</version>
+     </dependency>
      ```
-   * **Graddle**
-     ```Gradle
-        dependencies {
-            compile 'org.bytemechanics:config-manager:X.X.X'
-        }
+   * Graddle
+     ```json
+     dependencies {
+         compile 'org.bytemechanics:config-manager:X.X.X'
+     }
      ```
 1. Create the ConfigManager instance (keep in account that first configurations will be overrided if exist in the following files)
    ```Java
@@ -49,13 +49,13 @@ Java version: JDK8+
 1. Load configuration, either
    * Directly to System.properties (classic behaviour) 
      ```Java
-        instance.load();
+     instance.load();
      ```
    * Manually (custom behaviour) 
      ```Java
-        instance.stream() //Stream<Config>
-                .map(toMyObject::convert)
-                (...)
+     instance.stream() //Stream<Config>
+             .map(toMyObject::convert)
+             (...)
      ```
 
 
