@@ -132,7 +132,7 @@ public class ConfigParserFactoryTest {
                 Arguments.of("http://target/tests/config-out.properties",null,NullPointerException.class),
                 Arguments.of("http://target/tests/config-out.yaml",null,NullPointerException.class),
                 Arguments.of("http://target/tests/config-out.yml",null,NullPointerException.class),
-                Arguments.of("file://target",Paths.get("target/tests/config-write-out-wrong.yml"),UnsupportedConfigLocationFormat.class)
+                Arguments.of("file://target",Paths.get("src/test/resources/test.yaml"),UnsupportedConfigLocationFormat.class)
         );
     }
     @ParameterizedTest(name = "When read from {0} and {1} should raise {2}")

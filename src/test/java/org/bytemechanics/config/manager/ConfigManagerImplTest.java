@@ -160,7 +160,7 @@ public class ConfigManagerImplTest {
     static Stream<Arguments> inputReadWrongDataPack() {
         return Stream.of(
                 Arguments.of("file://target/tests/config-out.properties",null,NullPointerException.class),
-                Arguments.of(null,Paths.get("target/tests/config-read-out-wrong.yml"),NullPointerException.class),
+                Arguments.of(null,Paths.get("src/test/resources/test-parsed-yaml.properties"),NullPointerException.class),
                 Arguments.of(null,null,NullPointerException.class),
                 Arguments.of("file://target/tests/config-out.propertis",Paths.get("src/test/resources/test-parsed-yaml.properties"),UnsupportedConfigLocationFormat.class),
                 Arguments.of("classpath://target/tests/config-out.yamel",Paths.get("src/test/resources/test-parsed-yaml.properties"),UnsupportedConfigLocationFormat.class),
@@ -235,6 +235,7 @@ public class ConfigManagerImplTest {
         URI _location = (_uri!=null)? new URI(_uri) : null;
         ConfigManagerImpl instance = new ConfigManagerImpl((URI[])new URI[0]);
         if(_target!=null){
+            Files.createDirectories(_target.getParent());
             try(BufferedWriter writer=Files.newBufferedWriter(_target,Charset.forName("UTF-8"),StandardOpenOption.CREATE,StandardOpenOption.WRITE,StandardOpenOption.TRUNCATE_EXISTING)){
                  Assertions.assertThrows(_exception,() -> instance.write(_location,writer,Stream.empty()));
             }
