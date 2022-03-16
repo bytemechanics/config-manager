@@ -15,7 +15,6 @@
  */
 package org.bytemechanics.config.manager.exceptions;
 
-import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationScheme;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -64,7 +63,7 @@ public class UnsupportedConfigLocationSchemeTest {
         );
     }
     
-     @ParameterizedTest(name = "When constructor is called with key={0} and value={1} then the same key/value pair must be recorded")
+    @ParameterizedTest(name = "When constructor is called with key={0} and value={1} then the same key/value pair must be recorded")
     @MethodSource("dataPack")
     public void testUriConstructor(final String _uri,final String _supportedFormats) {
         UnsupportedConfigLocationScheme instance = new UnsupportedConfigLocationScheme(Optional.ofNullable(_uri)

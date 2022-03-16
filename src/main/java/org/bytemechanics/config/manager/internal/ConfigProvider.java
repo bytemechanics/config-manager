@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.bytemechanics.config.manager.internal.loaders;
+package org.bytemechanics.config.manager.internal;
 
-import org.bytemechanics.config.manager.Config;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.stream.Stream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
+import java.util.Optional;
 
 /**
  *
  * @author afarre
  */
-public interface ConfigParser {
+public interface ConfigProvider {
     
-    public Stream<Config> read(Reader _reader);
-    public void write(Writer _writer, Stream<Config> _config);
+    public Optional<InputStream> openInputStream(final URI _location);
+    public default Optional<OutputStream> openOutputStream(final URI _location){
+        throw new UnsupportedOperationException("Write operation is not supported for location "+_location);
+    }
 }

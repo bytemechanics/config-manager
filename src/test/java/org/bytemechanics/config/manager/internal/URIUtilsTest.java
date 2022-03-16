@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.bytemechanics.config.manager.exceptions;
+package org.bytemechanics.config.manager.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URI;
-import java.util.Optional;
+import java.net.URISyntaxException;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import org.bytemechanics.config.manager.internal.commons.functional.LambdaUnchecker;
-import org.bytemechanics.config.manager.internal.commons.string.SimpleFormat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,12 +35,12 @@ import org.junit.jupiter.params.provider.MethodSource;
  *
  * @author afarre
  */
-public class UnsupportedConfigLocationFormatTest {
+public class URIUtilsTest {
     
     @BeforeAll
     public static void setup() throws IOException {
-        System.out.println(">>>>> UnsupportedConfigLocationFormatTest >>>> setupSpec");
-        try ( InputStream inputStream = UnsupportedConfigLocationFormatTest.class.getResourceAsStream("/logging.properties")) {
+        System.out.println(">>>>> URIUtilsTest >>>> setupSpec");
+        try ( InputStream inputStream = URIUtilsTest.class.getResourceAsStream("/logging.properties")) {
             LogManager.getLogManager().readConfiguration(inputStream);
         } catch (final IOException e) {
             Logger.getAnonymousLogger().severe("Could not load default logging.properties file");
@@ -54,23 +52,27 @@ public class UnsupportedConfigLocationFormatTest {
     void beforeEachTest(final TestInfo testInfo) {
         System.out.println(">>>>> " + this.getClass().getSimpleName() + " >>>> " + testInfo.getTestMethod().map(Method::getName).orElse("Unkown") + "" + testInfo.getTags().toString() + " >>>> " + testInfo.getDisplayName());
     }
+
     static Stream<Arguments> dataPack() {
         return Stream.of(
-                Arguments.of("file://uri/location","[a, b]"),
-                Arguments.of(null,"[a, b,c]"),
-                Arguments.of("file://uri/location", null),
-                Arguments.of(null, null)
+                Arguments.of("file://src/test/resources/test.properties","src/test/resources/test.properties"),
+                Arguments.of("file://src/test/resources/test.yaml","src/test/resources/test.yaml"),
+                Arguments.of("file://src/test/resources/test.yml","src/test/resources/test.yml"),
+                Arguments.of("classpath://org/bytemechanics/config/manager/internal/test.properties","org/bytemechanics/config/manager/internal/test.properties"),
+                Arguments.of("classpath://org/bytemechanics/config/manager/internal/test.yaml","org/bytemechanics/config/manager/internal/test.yaml"),
+                Arguments.of("classpath://org/bytemechanics/config/manager/internal/test.yml","org/bytemechanics/config/manager/internal/test.yml"),
+                Arguments.of("classpath://test.properties","test.properties"),
+                Arguments.of("http://test.yaml","test.yaml"),
+                Arguments.of("https://test.yml","test.yml")
         );
     }
     
-    @ParameterizedTest(name = "When constructor is called with key={0} and value={1} then the same key/value pair must be recorded")
+
+    @ParameterizedTest(name = "When try to get retrieve hostAndPath from {0} should return {1}")
     @MethodSource("dataPack")
-    public void testUriConstructor(final String _uri,final String _supportedFormats) {
-        UnsupportedConfigLocationFormat instance = new UnsupportedConfigLocationFormat(Optional.ofNullable(_uri)
-                                                                                    .map(LambdaUnchecker.uncheckedFunction(URI::new))
-                                                                                    .orElse(null)
-                                                                        ,_supportedFormats);
-        Assertions.assertAll(() -> Assertions.assertEquals(SimpleFormat.format(UnsupportedConfigLocationFormat.MESSAGE, _uri,_supportedFormats),instance.getMessage())
-                            ,() -> Assertions.assertEquals(null,instance.getCause()));
+    public void testGetHostAndPath(final String _uri,final String _expectedHostAndPath) throws URISyntaxException {
+        URI _location = new URI(_uri);
+        String result = URIUtils.getHostAndPath(_location);
+        Assertions.assertEquals(_expectedHostAndPath, result);
     }
 }

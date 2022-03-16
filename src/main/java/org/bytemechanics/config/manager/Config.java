@@ -18,10 +18,11 @@ package org.bytemechanics.config.manager;
 import java.util.Objects;
 
 /**
- * Configuration sotre bean
+ * Configuration bean
+ * @see Comparable
  * @author afarre
  */
-public class Config {
+public class Config implements Comparable<Config>{
     
     private final String key;
     private final String value;
@@ -81,7 +82,21 @@ public class Config {
         }
         return Objects.equals(this.value, other.value);
     }
-    
+
+    /** @see Object#equals(java.lang.Object) */
+    @Override
+    public int compareTo(final Config _other) {
+        if(_other!=null){
+            return this.key.compareTo(_other.key);
+        }else{
+            return -1;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Config{" + "key=" + key + ", value=" + value + '}';
+    }    
     
     /**
      * Utility method to call constructor without new

@@ -1,0 +1,10 @@
+data:
+  person:
+    - age: 34
+      genre: male
+      name: first-name
+      surname: firts-surname
+    - age: 60
+      genre: female
+      name: second-name
+      surname: second-surname

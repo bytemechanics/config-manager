@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.bytemechanics.config.manager.internal.loaders;
+package org.bytemechanics.config.manager.internal;
 
-import org.bytemechanics.config.manager.Config;
-import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.UncheckedIOException;
@@ -26,6 +24,8 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.bytemechanics.config.manager.Config;
+import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
 import org.bytemechanics.config.manager.internal.commons.io.YAMLPropertyReader;
 import org.bytemechanics.config.manager.internal.commons.io.YAMLPropertyWriter;
 
@@ -35,7 +35,7 @@ import org.bytemechanics.config.manager.internal.commons.io.YAMLPropertyWriter;
  */
 public enum ConfigParserFactory implements ConfigParser{
     
-    PROPERTIES(".property"){
+    PROPERTIES(".properties"){
         @Override
         public Stream<Config> read(Reader _reader) {
             
@@ -90,7 +90,7 @@ public enum ConfigParserFactory implements ConfigParser{
     }
     public boolean canRead(final String _path){
         return Stream.of(this.suffixes)
-                        .filter(suffix -> _path.endsWith(suffix))
+                        .filter(suffix -> _path.toLowerCase().endsWith(suffix))
                         .map(suffix -> true)
                         .findAny()
                             .orElse(false);
@@ -105,7 +105,7 @@ public enum ConfigParserFactory implements ConfigParser{
     }
     public static final ConfigParser valueOf(final URI _location) {
         
-        final String path=_location.getPath();
+        final String path=URIUtils.getHostAndPath(_location);
         return Stream.of(ConfigParserFactory.values())
                         .filter(configReader -> configReader.canRead(path))
                         .findFirst()

@@ -5,20 +5,20 @@
 
 package org.bytemechanics.config.manager;
 
-import org.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
-import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
-import org.bytemechanics.config.manager.exceptions.UnwritableConfigLocation;
-import org.bytemechanics.config.manager.internal.loaders.ConfigParserFactory;
-import org.bytemechanics.config.manager.internal.loaders.ConfigProviderFactory;
-import java.io.IOException;
 import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
+import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
+import org.bytemechanics.config.manager.exceptions.UnwritableConfigLocation;
+import org.bytemechanics.config.manager.internal.ConfigParserFactory;
+import org.bytemechanics.config.manager.internal.ConfigProviderFactory;
 
 /**
  * Config manager service implementation
@@ -35,8 +35,8 @@ public class ConfigManagerImpl implements ConfigManager{
      * @param _charset charset to use to load the configurations
      */
     public ConfigManagerImpl(final List<URI> _locations,final Charset _charset) {
-        this.locations=_locations;
-        this.charset=_charset;
+        this.locations=Objects.requireNonNull(_locations,"Mandatory parameter _locations");
+        this.charset=Objects.requireNonNull(_charset,"Mandatory parameter _charset");
     }
     /**
      * Config manager constructor
@@ -78,6 +78,21 @@ public class ConfigManagerImpl implements ConfigManager{
                     .collect(Collectors.toList())
                 ,Charset.defaultCharset());
     }
+
+    /** 
+     * Retrieve the effective charset (provided or default) to use loading configurations
+     * @return effective charset
+     */
+    public Charset getCharset() {
+        return charset;
+    }
+    /** 
+     * Retrieve the list of locations from where to load configurations
+     * @return locations to load configurations
+     */
+    public List<URI> getLocations() {
+        return locations;
+    }
     
     
     /**
@@ -85,14 +100,16 @@ public class ConfigManagerImpl implements ConfigManager{
      * @param _location configuration location to discern reader the format
      * @param _reader reader from where configuration must be readed
      * @return stream of read configurations
-     * @throws UnreadableConfigLocation when for any reason the configuration can not be read
      * @throws UnsupportedConfigLocationFormat if the format of the location is not supported
+     * @throws NullPointerException if any of parameters are null
      */
     protected Stream<Config> read(final URI _location,Reader _reader){
         
-        try(Reader reader=_reader){
-            return ConfigParserFactory.read(reader, _location);
-        } catch (IOException|UncheckedIOException ex) {
+        Objects.requireNonNull(_location,"Mandatory parameter _location");
+        Objects.requireNonNull(_reader,"Mandatory parameter _reader");
+        try{
+            return ConfigParserFactory.read(_reader, _location);
+        } catch (UncheckedIOException ex) {
             throw new UnreadableConfigLocation(_location, ex);
         }
     }
@@ -104,12 +121,16 @@ public class ConfigManagerImpl implements ConfigManager{
      * @throws UnwritableConfigLocation when for any reason the configuration can not be writen
      * @throws UnsupportedConfigLocationFormat if the format of the location is not supported
      * @throws UnsupportedOperationException if write operation is not supported by the location format and/or scheme
+     * @throws NullPointerException if any of parameters are null
      */
     protected void write(final URI _location,Writer _writer, Stream<Config> _config){
         
-        try(Writer writer=_writer){
-            ConfigParserFactory.write(writer, _location,_config);
-        } catch (IOException|UncheckedIOException ex) {
+        Objects.requireNonNull(_location,"Mandatory parameter _location");
+        Objects.requireNonNull(_writer,"Mandatory parameter _writer");
+        Objects.requireNonNull(_config,"Mandatory parameter _config");
+        try{//(Writer writer=_writer){
+            ConfigParserFactory.write(_writer, _location,_config);
+        } catch (UncheckedIOException ex) {
             throw new UnwritableConfigLocation(_location, ex);
         }
     }

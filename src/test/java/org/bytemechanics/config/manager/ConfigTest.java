@@ -15,7 +15,6 @@
  */
 package org.bytemechanics.config.manager;
 
-import org.bytemechanics.config.manager.Config;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -104,5 +103,33 @@ public class ConfigTest {
         Config instance2 = Config.of("a","b");
         Assertions.assertAll(() ->  Assertions.assertFalse(instance1.equals(instance2))
                             ,() -> Assertions.assertFalse(instance2.equals(instance1)));
+    }
+
+    static Stream<Arguments> toStringDataPack() {
+        return Stream.of(
+                Arguments.of("2", "left-value","Config{key=2, value=left-value}"),
+                Arguments.of("2", null,"Config{key=2, value=null}")
+        );
+    }
+    @ParameterizedTest(name = "toString of {0} to {1} should return {2}")
+    @MethodSource("toStringDataPack")
+    public void testToString(final String _key,final String _value,final String _expected) {
+        Assertions.assertEquals(_expected,Config.of(_key, _value).toString());
+    }
+
+    static Stream<Arguments> compareToDataPack() {
+        return Stream.of(
+                Arguments.of(Config.of("2", "left-value"),Config.of("2", "left-value"),"2".compareTo("2")),
+                Arguments.of(Config.of("2", "left-value1"),Config.of("2", "left-value"),"2".compareTo("2")),
+                Arguments.of(Config.of("2", "left-value"),Config.of("2", "left-value1"),"2".compareTo("2")),
+                Arguments.of(Config.of("22", "left-value"),Config.of("2", "left-value"),"22".compareTo("2")),
+                Arguments.of(Config.of("22", "left-value"),null,-1),
+                Arguments.of(Config.of("2", "left-value"),Config.of("22", "left-value"),"2".compareTo("22"))
+        );
+    }
+    @ParameterizedTest(name = "Comparing {0} to {1} should return {2}")
+    @MethodSource("compareToDataPack")
+    public void testCompareTo(final Config _config1,final Config _config2, int _expected) {
+        Assertions.assertEquals(_expected,_config1.compareTo(_config2));
     }
 }
