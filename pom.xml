@@ -58,7 +58,7 @@
                         <configuration>
                             <copies>
                                 <copy>
-                                    <artifact>${project.groupId}:copy-commons:1.8.1</artifact>
+                                    <artifact>${project.groupId}:copy-commons:1.8.2</artifact>
                                     <classes>
                                         <class>org.bytemechanics.commons.io.YAMLPropertyReader</class>
                                         <class>org.bytemechanics.commons.io.YAMLPropertyWriter</class>
