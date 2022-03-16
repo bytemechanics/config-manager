@@ -1,0 +1,14 @@
+data:
+  overloaded:
+    origin: from-yml-2
+    additional: from-yml-2
+    list:
+      - id: 1
+        name: from-yml-1-list-name-1
+      - id: 2
+        name: from-yml-1-list-name-2
+      - id: 3
+        name: from-yml-2-list-name-3
+  double-overload:
+    origin: from-yml-2
+    additional: from-yml-2

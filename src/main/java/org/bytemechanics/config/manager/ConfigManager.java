@@ -5,14 +5,17 @@
 
 package org.bytemechanics.config.manager;
 
+import java.net.URI;
+import java.util.stream.Stream;
 import org.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
 import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationFormat;
 import org.bytemechanics.config.manager.exceptions.UnsupportedConfigLocationScheme;
-import java.net.URI;
-import java.util.stream.Stream;
 
 /**
- * Config Manager service
+ * Config Manager service, there are several things to take in account:
+ * Overwrited lists can have unexpected behaviours please convert it to maps if you want to override any attribute, otherwise you need to take in account:
+ * If you are overriding with yaml files include all its elements changing only what you want to change
+ * If you change the size of a list from properties origin the helper field length should no be correct
  * @author afarre
  */
 public interface ConfigManager {

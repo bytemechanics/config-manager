@@ -330,4 +330,39 @@ public class ConfigManagerImplTest {
         ConfigManagerImpl instance = new ConfigManagerImpl((URI[])new URI[0]);
         Assertions.assertThrows(_exception,() -> instance.write(_location,Stream.empty()));
     }
+    
+    @Test
+    public void testStream() throws IOException{
+        ConfigManagerImpl instance = new ConfigManagerImpl("file://src/test/resources/integral-test-1.yml","classpath://integral-test.yml","classpath://org/bytemechanics/config/manager/internal/integral-test-2.yaml","classpath://integral-test-3.properties");
+        Properties properties=new Properties();
+        try(Reader reader=Files.newBufferedReader(Paths.get("src/test/resources/integral-test-expected.properties"),Charset.forName("UTF-8"))){
+            properties.load(reader);
+        }
+        List<Config> expected=properties.entrySet()
+                                            .stream()
+                                                .map(entry -> Config.of((String)entry.getKey(),(String)entry.getValue()))
+                                                .sorted()
+                                                .collect(Collectors.toList());
+        List<Config> actual=instance.stream()
+                                    .sorted()
+                                    //.peek(System.out::println)
+                                    .collect(Collectors.toList());
+        Assertions.assertAll(() -> Assertions.assertEquals(expected.size(),actual.size()),
+                                () -> Assertions.assertEquals(expected,actual));
+    }
+
+    @Test
+    public void testLoad() throws IOException{
+        ConfigManagerImpl instance = new ConfigManagerImpl("file://src/test/resources/integral-test-1.yml","classpath://integral-test.yml","classpath://org/bytemechanics/config/manager/internal/integral-test-2.yaml","classpath://integral-test-3.properties");
+        Properties properties=new Properties();
+        try(Reader reader=Files.newBufferedReader(Paths.get("src/test/resources/integral-test-expected.properties"),Charset.forName("UTF-8"))){
+            properties.load(reader);
+        }
+        instance.load();
+        properties.entrySet()
+                    .stream()
+                        .forEach(config ->  Assertions.assertAll(() -> Assertions.assertNotNull(System.getProperty((String)config.getKey())),
+                                                                    () -> Assertions.assertEquals((String)config.getValue(),System.getProperty((String)config.getKey()))));
+       ;
+    }
 }

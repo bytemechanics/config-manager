@@ -1,0 +1,27 @@
+data:
+  non-overloaded: 
+    origin: from-yml-1
+    list:
+      - id: 1
+        name: non-overloaded-list-name-1
+      - id: 2
+        name: non-overloaded-list-name-2
+      - id: 3
+        name: non-overloaded-list-name-3
+      - id: 4
+        name: non-overloaded-list-name-4
+  overloaded:
+    origin: from-yml-1
+    list:
+      - id: 1
+        name: from-yml-1-list-name-1
+      - id: 2
+        name: from-yml-1-list-name-2
+  double-overload:
+    origin: from-yml-1
+    other:
+      list:
+        - age: from-yml-1
+          genre: from-yml-1
+        - age: from-yml-1
+          genre: from-yml-1
