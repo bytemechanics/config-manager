@@ -5,6 +5,7 @@
 
 package org.bytemechanics.config.manager;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.io.Writer;
@@ -128,9 +129,9 @@ public class ConfigManagerImpl implements ConfigManager{
         Objects.requireNonNull(_location,"Mandatory parameter _location");
         Objects.requireNonNull(_writer,"Mandatory parameter _writer");
         Objects.requireNonNull(_config,"Mandatory parameter _config");
-        try{//(Writer writer=_writer){
-            ConfigParserFactory.write(_writer, _location,_config);
-        } catch (UncheckedIOException ex) {
+        try(Writer writer=_writer){
+            ConfigParserFactory.write(writer, _location,_config);
+        } catch (IOException|UncheckedIOException ex) {
             throw new UnwritableConfigLocation(_location, ex);
         }
     }

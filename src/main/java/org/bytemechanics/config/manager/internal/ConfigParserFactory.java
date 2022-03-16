@@ -70,10 +70,14 @@ public enum ConfigParserFactory implements ConfigParser{
 
         @Override
         public void write(Writer _writer, Stream<Config> _config) {
-            new YAMLPropertyWriter(_writer)
-                    .write(_config
-                                .sorted()
-                                .map(config -> new YAMLPropertyWriter.Property(config.getKey(),config.getValue())));
+            try(YAMLPropertyWriter writer=new YAMLPropertyWriter(_writer)){
+                Stream<YAMLPropertyWriter.Property> properties=_config
+                                                                    .sorted()
+                                                                    .map(config -> new YAMLPropertyWriter.Property(config.getKey(),config.getValue()));
+                writer.write(properties);
+            } catch (IOException ex) {
+                throw new UncheckedIOException(ex);
+            }
         }
     },
     ;
