@@ -44,7 +44,10 @@ Java version: JDK8+
      ```
 1. Create the ConfigManager instance (keep in account that first configurations will be overrided if exist in the following files)
    ```Java
-      ConfigManagerImpl instance = new ConfigManagerImpl("file://src/test/resources/integral-test-1.yml","classpath://integral-test.yml","classpath://org/bytemechanics/config/manager/internal/integral-test-2.yaml","classpath://integral-test-3.properties");    
+   ConfigManagerImpl instance = new ConfigManagerImpl("file://src/test/resources/integral-test-1.yml"
+                                                       ,"classpath://integral-test.yml"
+                                                       ,"classpath://org/bytemechanics/config/manager/internal/integral-test-2.yaml"
+                                                       ,"classpath://integral-test-3.properties");    
    ```
 1. Load configuration, either
    * Directly to System.properties (classic behaviour) 
