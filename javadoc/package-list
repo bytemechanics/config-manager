@@ -1,0 +1,6 @@
+org.bytemechanics.config.manager
+org.bytemechanics.config.manager.exceptions
+org.bytemechanics.config.manager.internal
+org.bytemechanics.config.manager.internal.commons.functional
+org.bytemechanics.config.manager.internal.commons.io
+org.bytemechanics.config.manager.internal.commons.string
