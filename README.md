@@ -44,6 +44,21 @@ dependencies {
 }
 ```
 
-2. Use the library you prefer, to main reference please download and look in javadoc, we intend to keep it updated and explicative
+1. Create the ConfigManager instance (keep in account that first configurations will be overrided if exist in the following files)
+```Java
+   ConfigManagerImpl instance = new ConfigManagerImpl("file://src/test/resources/integral-test-1.yml","classpath://integral-test.yml","classpath://org/bytemechanics/config/manager/internal/integral-test-2.yaml","classpath://integral-test-3.properties");    
+```
+
+1. Load configuration, either
+   * Directly to System.properties (classic behaviour) 
+     ```Java
+        instance.load();
+     ```
+   * Manually (custom behaviour) 
+     ```Java
+        instance.stream() //Stream<Config>
+                .map(toMyObject::convert)
+                (...)
+     ```
 
 
