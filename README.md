@@ -28,27 +28,24 @@ Java version: JDK8+
 (Please read our [Javadoc](https://config-manager.bytemechanics.org/javadoc/index.html) for further information)
 
 1. First of all include the Jar file in your compile and execution classpath.
-
-**Maven**
-```Maven
+   * **Maven**
+     ```Maven
 	<dependency>
 		<groupId>org.bytemechanics</groupId>
 		<artifactId>config-manager</artifactId>
 		<version>X.X.X</version>
 	</dependency>
-```
-**Graddle**
-```Gradle
-dependencies {
-    compile 'org.bytemechanics:config-manager:X.X.X'
-}
-```
-
+     ```
+   * **Graddle**
+     ```Gradle
+        dependencies {
+            compile 'org.bytemechanics:config-manager:X.X.X'
+        }
+     ```
 1. Create the ConfigManager instance (keep in account that first configurations will be overrided if exist in the following files)
-```Java
-   ConfigManagerImpl instance = new ConfigManagerImpl("file://src/test/resources/integral-test-1.yml","classpath://integral-test.yml","classpath://org/bytemechanics/config/manager/internal/integral-test-2.yaml","classpath://integral-test-3.properties");    
-```
-
+   ```Java
+      ConfigManagerImpl instance = new ConfigManagerImpl("file://src/test/resources/integral-test-1.yml","classpath://integral-test.yml","classpath://org/bytemechanics/config/manager/internal/integral-test-2.yaml","classpath://integral-test-3.properties");    
+   ```
 1. Load configuration, either
    * Directly to System.properties (classic behaviour) 
      ```Java
