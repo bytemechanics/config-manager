@@ -44,7 +44,7 @@ public enum ConfigParserFactory implements ConfigParser{
                 properties.load(_reader);
                 return properties.entrySet()
                                     .stream()
-                                        .map(entry -> new Config((String)entry.getKey(),(String)entry.getValue()));
+                                        .map(entry -> Config.of((String)entry.getKey(),(String)entry.getValue()));
             } catch (IOException ex) {
                 throw new UncheckedIOException(ex);
             }
@@ -65,7 +65,7 @@ public enum ConfigParserFactory implements ConfigParser{
         public Stream<Config> read(Reader _reader) {
             return new YAMLPropertyReader(_reader)
                         .stream()
-                            .map(property -> new Config(property.getKey(),property.getValue()));
+                            .map(property -> Config.of(property.getKey(),property.getValue()));
         }
 
         @Override

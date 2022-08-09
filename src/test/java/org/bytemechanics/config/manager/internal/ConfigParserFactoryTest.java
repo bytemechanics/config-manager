@@ -164,6 +164,7 @@ public class ConfigParserFactoryTest {
         URI _location = new URI(_uri);
         List<String> expected = Files.lines(_expected,Charset.forName("UTF-8"))
                                         .filter(line -> !line.startsWith("#"))
+										.sorted()
                                         .collect(Collectors.toList());
         
          Properties properties=new Properties();
@@ -181,6 +182,7 @@ public class ConfigParserFactoryTest {
         }      
         List<String> result = Files.lines(_target,Charset.forName("UTF-8"))
                                     .filter(line -> !line.startsWith("#"))
+									.sorted()
                                     .collect(Collectors.toList());
         Assertions.assertEquals(expected,result);
     }
