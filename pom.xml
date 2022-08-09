@@ -8,7 +8,7 @@
     </parent>
     <artifactId>config-manager</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <name>Config Manager</name>
     <description>Configuration manager to load and populate configurations from distinct formats and locations as system properties to config applications</description>
     <url>https://config-manager.bytemechanics.org</url>
