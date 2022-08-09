@@ -163,8 +163,6 @@ public class ConfigManagerImpl implements ConfigManager{
                                 .collect(Collectors.toMap(Config::getKey,config -> config,(configA,configB) -> configB))
                                     .values()
                                        .stream();
-                                        
-                //                .filter(config -> !config.getKey().equals(lastConfig.getAndUpdate(key -> config.getKey())));
     }
     /** @see ConfigManager#load()  */
     @Override

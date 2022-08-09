@@ -196,6 +196,7 @@ public class ConfigManagerImplTest {
         URI _location = new URI(_uri);
         List<String> expected = Files.lines(_expected,Charset.forName("UTF-8"))
                                         .filter(line -> !line.startsWith("#"))
+										.sorted()
                                         .collect(Collectors.toList());
         
         Properties properties=new Properties();
@@ -214,6 +215,7 @@ public class ConfigManagerImplTest {
         }      
         List<String> result = Files.lines(_target,Charset.forName("UTF-8"))
                                     .filter(line -> !line.startsWith("#"))
+									.sorted()
                                     .collect(Collectors.toList());
         Assertions.assertEquals(expected,result);
     }
@@ -257,14 +259,15 @@ public class ConfigManagerImplTest {
         }
         List<Config> expected=properties.entrySet()
                                             .stream()
+												.sequential()
                                                 .map(entry -> Config.of((String)entry.getKey(),(String)entry.getValue()))
                                                 .sorted()
                                                 .collect(Collectors.toList());
 
         List<Config> actual=instance.read(_location)
-                                   .sorted()
-                                   .peek(System.out::println)
-                                   .collect(Collectors.toList());
+									.sequential()
+									.sorted()
+									.collect(Collectors.toList());
         Assertions.assertEquals(expected,actual);
     }
 
@@ -295,7 +298,9 @@ public class ConfigManagerImplTest {
     public void testWrite_URI(final String _uri,final Path _target,final Path _source,final Path _expected) throws URISyntaxException, IOException {
         URI _location = new URI(_uri);
         List<String> expected = Files.lines(_expected,Charset.forName("UTF-8"))
+										.sequential()
                                         .filter(line -> !line.startsWith("#"))
+										.sorted()
                                         .collect(Collectors.toList());
         
         Properties properties=new Properties();
@@ -311,7 +316,9 @@ public class ConfigManagerImplTest {
         ConfigManagerImpl instance = new ConfigManagerImpl((URI[])new URI[0]);
         instance.write(_location,source.stream());
         List<String> result = Files.lines(_target,Charset.forName("UTF-8"))
+									.sequential()
                                     .filter(line -> !line.startsWith("#"))
+									.sorted()
                                     .collect(Collectors.toList());
         Assertions.assertEquals(expected,result);
     }
@@ -340,12 +347,13 @@ public class ConfigManagerImplTest {
         }
         List<Config> expected=properties.entrySet()
                                             .stream()
+												.sequential()
                                                 .map(entry -> Config.of((String)entry.getKey(),(String)entry.getValue()))
                                                 .sorted()
                                                 .collect(Collectors.toList());
         List<Config> actual=instance.stream()
+									.sequential()
                                     .sorted()
-                                    //.peek(System.out::println)
                                     .collect(Collectors.toList());
         Assertions.assertAll(() -> Assertions.assertEquals(expected.size(),actual.size()),
                                 () -> Assertions.assertEquals(expected,actual));
