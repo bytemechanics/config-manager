@@ -13,7 +13,6 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.bytemechanics.config.manager.exceptions.UnreadableConfigLocation;
@@ -156,7 +155,6 @@ public class ConfigManagerImpl implements ConfigManager{
     /** @see ConfigManager#stream() */
     @Override
     public Stream<Config> stream(){
-        final AtomicReference<String> lastConfig=new AtomicReference<>("");
         return this.locations.stream()
                                 .sequential()
                                 .flatMap(this::read)
